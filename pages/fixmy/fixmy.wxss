@@ -1,0 +1,75 @@
+page {
+	background: #eee;
+}
+
+.order-item {
+	margin-bottom: 2px;
+	background: #fff;  
+ 
+}
+
+.order-item:last-child {
+	margin-bottom: 0;
+}
+
+.order-footer {
+	padding: 9px 0;
+  display:flex;
+
+}
+
+.order-footer text {
+	font-size: 17px;
+	margin: 0 5px;
+}
+
+
+
+.flex-item{
+    width: 100px;
+    height: 100px;
+}
+.flex-wrp{
+    height: 40px;
+    display:flex;
+    background-color: #FFFFFF;
+    margin-top: 1%
+}
+.no{
+  padding: 5px;
+  margin: 5%;
+  margin-top: 1%
+}
+.inf{
+  width: 800rpx
+}
+.edi{
+  margin-top: 7%
+ 
+}
+/*menu list*/
+.tableviewcell {
+	padding: 20rpx 40rpx;
+	border-bottom: 1rpx solid #ddd;
+	color: #666;
+	background: white;
+	display: flex;
+	align-items: center;
+  font-weight:bold;
+}
+
+/*icon*/
+.tableviewcell image {
+	width: 60rpx;
+	height: 60rpx;
+}
+
+/*text*/
+.tableviewcell text {
+	font-size: 16px;
+	margin-left: 10px;
+}
+
+.fix{
+  margin-top: 5%
+}

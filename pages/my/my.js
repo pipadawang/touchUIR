@@ -1,0 +1,319 @@
+const AV = require('../../libs/av-weapp-min.js');
+const app = getApp()
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    na: null,
+    ph: null,
+    dates: null,
+    time: null,
+    objectroll: null,
+    adresult:[],
+    user:{}
+  },
+
+  onPullDownRefresh: function () {
+    console.log(789)
+    //wx.clearStorage()
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if (app.globalData.user) {
+      this.setData({
+        user: app.globalData.user,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          console.log(1)
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+
+        }
+      })
+    }
+    //登陆
+    /*console.log(app.globalData.user)
+    //console.log(app.user.attributes.avatarUrl)
+    console.log(1)
+    AV.User.loginWithWeapp().then(user => {
+      app.globalData.user = user.toJSON();
+    }).catch(console.error);
+
+    setTimeout(function () {
+
+      console.log(2)
+      // 假设已经通过 AV.User.loginWithWeapp() 登录
+      // 获得当前登录用户
+      const user = AV.User.current();
+      // 调用小程序 API，得到用户信息
+      wx.getUserInfo({
+        success: ({ userInfo }) => {
+          // 更新当前用户的信息
+          user.set(userInfo).save().then(user => {
+            // 成功，此时可在控制台中看到更新后的用户信息
+            app.globalData.user = user.toJSON();
+          }).catch(console.error);
+        }
+      });
+      console.log(app.globalData)
+  
+      //要延时执行的代码  
+    }, 1000) //延迟时间 这里是1秒 
+  */
+  },
+  getUserInfo: function (e) {
+
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true,
+      wxname2: this.data.userInfo.nickName
+    })
+    wx.setStorageSync('wxid2', this.data.userInfo.nickName)
+    wx.setStorage({
+      key: 'wxsrc2',
+      data: this.data.userInfo.avatarUrl,
+    })
+    var value = wx.getStorageSync('wxid2')
+    console.log(111)
+    console.log(value)
+    this.setData({
+      wxname2: value
+    })
+  },
+  tomyyuyue: function () {
+    console.log(1)
+    wx.navigateTo({
+      url: '../myyuyue2/myyuyue2'
+    })
+  },
+  navigateToAdvice:function(){
+    wx.navigateTo({
+      url: '../ques/ques'
+    })
+  },
+  navigateToFankuiAdvice:function(){
+
+    console.log(app.globalData.user)
+    if (app.globalData) {
+      console.log(app.globalData.user.authData.lc_weapp.openid)
+      wx.navigateTo({
+        url: '../fankuidetail/fankuidetail?ima=' + app.globalData.user.avatarUrl + '&na=' + app.globalData.user.nickName +'&ob=' + app.globalData.user.authData.lc_weapp.openid
+      })
+    } else {
+      wx.showModal({
+        title: '发生什么了？',
+        content: '请登录后查询我的预约  ',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
+
+  },
+  navigateTo: function () {
+    wx.showModal({
+      title: '关于我们',
+      content: '   网络文化办公室是网络与教育技术中心下的学生组织，我们为在校师生提供免费的电脑、网络维护维修。我们的办公室在教学楼二楼水房，每天晚上八点到九点是我们的值班时间，大家的电脑在遇到问题的时候，可以前往维修。我们是公益组织，所有的服务均为免费。详情请关注公众号：“UIR网络文化办公室”，获取更多信息              \n软件作者：最后的卡米夫😏'  ,
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  onHide: function () {
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          console.log(1)
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+
+        }
+      })
+    }
+  },
+  onShow: function () {
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          console.log(1)
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+
+        }
+      })
+    }
+  },
+  navigateToMyyuyue: function () {
+   // console.log(this.data.userInfo.nickName)
+    wx.navigateTo({
+      url: '../myyuyue2/myyuyue2?ima=' + app.globalData.user.avatarUrl + '&na=' + app.globalData.user.nickName + '&ob=' + app.globalData.user.authData.lc_weapp.openid
+    })
+    /*if (this.data.userInfo.nickName){
+    wx.navigateTo({
+      url: '../myyuyue2/myyuyue2?ima=' + app.globalData.user.avatarUrl + '&na=' + app.globalData.user.nickName + '&ob=' + app.globalData.user.authData.lc_weapp.openid
+    })} else {
+      wx.showModal({
+        title: '发生什么了？',
+        content: '请登录后查询我的预约  ',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })}*/
+  },
+
+  navigateour: function () {
+    wx.showModal({
+      title: '疑难解答',
+      content: '1.问：为什么我查不到自己的信息和进度了？\n答：您是否更换了微信名？更换微信名可能会造成您的信息丢失\n2.问：不小心点击取消授权或登陆，无法预约怎么办？\n答：您可以在微信小程序列表中删除本程序，然后搜索网络文化办公室，进入即可重新登录 ',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.showModal({
+            title: '疑难解答',
+            content: '1.问：为什么我查不到自己的信息和进度了？\n答：您是否更换了微信名？更换微信名可能会造成您的信息丢失\n2.问：不小心点击取消授权或登陆，无法预约怎么办？\n答：您可以在微信小程序列表中删除本程序，然后搜索网络文化办公室，进入即可重新登录 ',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+                      wx.showModal({
+                        title: '恭喜你！',
+                        content: '恭喜你以耐心成功解锁了本程序的彩蛋！本彩蛋可能造成您手机卡顿，微信崩溃，是否继续？ ',
+                        success: function (res) {
+                          if (res.confirm) {
+                            console.log('用户点击确定')
+
+                            wx.showModal({
+                              title: '最后一次反悔机会',
+                              content: '当您点击确定后，就会进入彩蛋时间',
+                              success: function (res) {
+                                if (res.confirm) {
+                                  console.log('用户点击确定')
+                                  wx.navigateTo({
+                                    url: '../flappybird/flappybird' 
+                                  })
+                                } else if (res.cancel) {
+                                  console.log('用户点击取消')
+                                }
+                              }
+                            })
+                          } else if (res.cancel) {
+                            console.log('用户点击取消')
+                          }
+                        }
+                      })
+               
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
+  },
+  navigateToFail: function () {
+
+    //获取用户信息
+    console.log(app.globalData)
+    var _this = this;
+    if (app.globalData.user.admin == true) {
+      wx.navigateTo({
+        url: '../admin/admin'
+      })
+    } else {
+      wx.showModal({
+        title: '发生什么了？',
+        content: '您不是管理员，无法使用后台管理哦',
+        success: function (res) {
+          if (res.confirm) { console.log('用户点击确定') }
+          else if (res.cancel) { console.log('用户点击取消') }
+        }
+      })
+    }
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '网络文化办公室',
+      desc: '国关修电脑哪家强，教学楼二楼开水房',
+    }
+  },
+  sendMessage:function(){ 
+  }
+})

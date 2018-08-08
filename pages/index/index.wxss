@@ -1,0 +1,202 @@
+
+.swiper-image {
+	width: 100%;
+	height: 100%;
+  
+}
+.tableviewcell {
+	padding: 20rpx 40rpx;
+	border-bottom: 1rpx solid #ddd;
+	color: #666;
+	background: #eeeeee;
+	display: flex;
+	align-items: center;
+}
+
+/*icon*/
+.tableviewcell image {
+	width: 60rpx;
+	height: 60rpx;
+}
+
+.gundong{
+  height: 11em
+}
+/*新版主界面*/
+.big-logo{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+  background:white;
+margin-top:20rpx;
+
+
+}
+.logoinfo{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  border: 10rpx;
+	width:120rpx; 
+	height: 120rpx; 
+  margin-left: 10rpx;
+  margin-top:10rpx;
+
+}
+.logotext{
+	color: black;
+	font-size: 22rpx;
+}
+
+
+page, view {
+    font-family: arial,'pingfang sc',stheiti,"microsoft yahei",sans-serif
+}
+.short-card {
+    height: 250rpx;
+}
+.card {
+    background: #fff;
+}
+.card, #wordscard {
+    background: #eee;
+    margin: 20rpx 14px;
+    padding: 20px 32rpx;
+    border-radius: 2%;
+}
+.card2{
+   
+    margin: 20rpx 14px;
+    padding: 20px 32rpx;
+    border-radius: 2%;
+}
+.tag{
+ color:BLACK;
+font-size:30rpx;
+
+}
+.title{
+  font-size:50rpx;
+  color:BLACK;
+
+}
+.para{
+  font-size:40rpx;
+  color:BLACK;
+
+}
+.tlink{
+margin-left:20rpx;
+  font-size:35rpx;
+  color:BLACK;
+}
+.huifu{
+  margin-top: 25rpx;
+    display: flex;
+}
+.comment-icon {
+width:50rpx;
+height:50rpx;
+}
+
+.cardt, #wordscard {
+    background: #fff;
+    margin: 20rpx 14px;
+    padding: 10px 32rpx;
+    border-radius: 2%;
+ 
+    
+}
+.comment-icont {
+  margin-top: 10rpx;
+width:50rpx;
+height:50rpx;
+}
+.tftitle{
+  font-size: 40rpx;
+
+}
+.title-tabs-bar-container {
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  background-color:#9C978B; 
+  align-items: center;
+  justify-content: center;
+}
+.title-tabs-bar-tab-text-selected {
+  border-width: 2rpx;
+  border-color: #FFFFFF;
+  border-style: solid;
+  border-radius: 20rpx;
+}
+.title-tabs-bar-tab-text {
+  width: 150rpx;
+  font-size: 35rpx;
+  color: #FFFFFF;
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
+  text-align: center;
+}
+.grid{
+  margin-top: 20rpx
+}
+.switch1{
+  float: right
+}
+.listtxt{
+  color: black;
+  margin-left: 5%;
+  font-size: 45rpx;
+  font-weight: bolder
+}
+.body-view{
+  height: 35px;
+  margin-top: 20rpx
+}
+
+
+.tool{  
+  height: 64rpx;  
+  text-align: center;  
+  line-height: 64rpx;  
+  margin: 20rpx 28rpx 20rpx 0;  
+}  
+.tool-item{  
+  display: inline-block;  
+  vertical-align: top;  
+
+
+}  
+.tool-item image{  
+  height: 60rpx;  
+  width: 60rpx;  
+  vertical-align: -3px;  
+  margin-right: 10rpx;  
+}  
+.comment image{  
+  transform: scale(.85);  
+}  
+.suimage{
+  width: 50px;
+  height: 50px;
+}
+.huifu2{
+  margin-top: 25rpx;
+  display: flex;
+  margin-left:67%;
+
+}
+.tool-item2{  
+  display: inline-block;  
+  vertical-align: top;  
+margin-left: 5%
+
+}  
+.tool-item2 image{  
+  height: 60rpx;  
+  width: 60rpx;  
+  vertical-align: -3px;  
+  margin-right: 10rpx;  
+}  

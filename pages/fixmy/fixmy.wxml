@@ -1,0 +1,24 @@
+<view bindtap="orderManage" class="tableviewcell">
+  <image src="../../image/list.png" />
+  <text>网络排查(点击{{look}}）</text>
+</view>
+
+<view class="fix">
+  <view wx:if="{{bindhidden}}" class="order-item" wx:for="{{NetFix}}">
+    <view class="flex-wrp" style="flex-direction:row;" data-id="{{index}}" bindtap='detail'>
+      <view class="no">{{index+1}}</view>
+      <view class="inf">
+        <view class="order-footer">
+          <text>{{item.title}}</text>
+        </view>
+
+
+
+
+      </view>
+    </view>
+
+
+
+  </view>
+</view>

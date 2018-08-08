@@ -1,0 +1,48 @@
+<view class=".v-fb">
+<form bindsubmit="formSubmit" bindreset="formReset">
+<view style="margin-bottom;border-bottom:5pX solid #EFEFF3;"></view>
+
+
+<view class="phone">
+<text>联系方式：</text>
+</view>
+<view class="section">
+  <input placeholder="选填，方便问题跟进解决" focus="{{focus}}" bindinput="inputTelphone"/>
+</view>
+
+
+
+<view class="phone">
+<text>反馈地址：</text>
+</view>
+<view class="section3">
+  <input placeholder="如:润思楼A座二楼洗衣房" focus="{{focus}}" bindinput="inputAdress"/>
+</view>
+
+
+
+
+<view class="section2" >  
+  <picker bindchange="bindPickerChange" value="{{index2}}" range="{{objectArrayQuesObject}}" mode = "selector">  
+    <view class="picker">  
+      问题类型：{{objectArrayQuesObject[index2]}}  
+    </view>  
+  </picker>  
+</view>
+<view style="margin-bottom;padding:5rpx;border-bottom:5pX solid #EFEFF3;"></view>
+<view class="phone">
+<text>问题详情：</text>
+</view>
+<view class="namePut">
+    <textarea  placeholder="当你无法在类型中描述您的问题时，你可以在这里详细的告诉我们您遇到的问题，或对学生会的建议，我们会认真的记录下你的反馈或建议并提供帮助" name="textarea" bindinput="inputDetail"  />   
+</view>
+
+
+
+<view>
+<button class="ok"  type="primary"  bindtap="updetail" >点击提交</button>
+</view>
+
+</form>
+
+</view>

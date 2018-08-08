@@ -1,0 +1,44 @@
+<view class="cv">
+<view class="containe">
+  <view class="userinfo">
+ <!--<button class="butt"  wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" > 点击登陆 </button>
+    
+    <block wx:else>
+      <image class="userinfo-avatar" bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>  
+    </block>-->
+          <image class="userinfo-avatar" bindtap="bindViewTap" class="userinfo-avatar" src="{{user.avatarUrl}}" background-size="cover"></image> 
+
+    </view><text class="userinfo-nickname">{{user.nickName}}</text></view>
+    <view style="margin-bottom;padding:5rpx;border-bottom:10pX solid #9C978B;"></view>
+</view>
+
+<view class='choose'>
+
+<view bindtap="navigateToMyyuyue" class="tableviewcell">
+	<image src="../../image/iconfont-dingdan.png" />
+	<text>维修预约</text>
+</view>
+<view bindtap="navigateToFankuiAdvice" class="tableviewcell">
+	<image src="../../image/nav_h.png" />
+	<text>我的反馈</text>
+</view>
+<view bindtap="navigateToAdvice" class="tableviewcell">
+	<image src="../../image/iconfont-tuihuo.png" />
+	<text>Bug提交</text>
+</view>
+<view class="boundary"/>
+<view bindtap="navigateTo" class="tableviewcell">
+	<image src="../../image/iconfont-kefu.png" />
+	<text>关于我们</text>
+</view>
+
+<view bindtap="navigateour" class="tableviewcell">
+	<image src="../../image/iconfont-help.png" />
+	<text>疑难解答</text>
+</view>
+<view bindtap="navigateToFail" class="tableviewcell">
+	<image src="../../image/iconfont-shouhuodizhi.png" />
+	<text>后台管理</text>
+</view>
+
+</view>

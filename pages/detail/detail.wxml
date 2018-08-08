@@ -1,0 +1,22 @@
+<view class="cv">
+<view class="title"><image src="../../image/me.png" mode="aspectFill" class="blue" /><text class="line">|</text>
+<text>{{title}}</text>
+</view>
+<view style="margin-bottom;padding:5rpx;border-bottom:2pX solid #bdbdbd;"></view>
+
+
+
+
+
+<view class="title2"><image src="../../image/ques.png" mode="aspectFill" class="blue2" />故障原因：</view>
+<view class="rongqi">
+<view class="con">{{reason}}</view></view>
+<view style="margin-bottom;padding:5rpx;border-bottom:1pX solid #bdbdbd;"></view>
+<view class="title2"><image src="../../image/net.png" mode="aspectFill" class="blue2" />解决方法：</view>
+<view class="rongqi">
+<view class="con">{{way}}</view></view>
+<view style="margin-bottom;padding:5rpx;border-bottom:1pX solid #bdbdbd;"></view>
+
+
+
+</view>

@@ -1,0 +1,115 @@
+<!--
+<view style="margin-bottom;border-bottom:10pX solid #9C978B;" >
+  <view class="title-tabs-bar-container">
+    <text bindtap="onTitleBarsClick0" class="title-tabs-bar-tab-text {{curSelClassifyIndex == 0 ? 'title-tabs-bar-tab-text-selected' : ''}}">综合反馈</text>
+    <text bindtap="onTitleBarsClick1" class="title-tabs-bar-tab-text {{curSelClassifyIndex == 1 ? 'title-tabs-bar-tab-text-selected' : ''}}">网络报修</text>
+  </view>
+</view>-->
+<swiper class="gundong" indicator-dots="false" autoplay="false" interval="5000" duration="1000" style="height:{{bannerHeight}}px;">
+  <block wx:for="{{indeximg}}" wx:key="">
+    <swiper-item>
+      <image src="{{item}}" mode="aspectFill" class="swiper-image" />
+    </swiper-item>
+  </block>
+</swiper>
+
+
+
+<view class="big-logo">
+  <block wx:for-items="{{logos}}">
+    <view class="logoinfo" bindtap="{{item.bind}}">
+      <image style="width:100rpx; height: 100rpx;" src="{{item.image}}" mode="aspectFit" />
+      <text class="logotext">{{item.title}}</text>
+    </view>
+  </block>
+</view>
+
+<!--text.wxml-->
+
+<view class="body-view">
+  <text class='listtxt'>{{list}}</text>
+  <switch class="switch1" color="#0288d1" checked bindchange="switch1Change" />
+</view>
+<view class="grid" wx:if="{{bindhidden}}">
+  <!--top news list-->
+  <view class="card2" wx:for="{{allques}}" data-id="{{index}}" style="background:{{color1[index]}}">
+
+    <view>
+      <text class="title">{{ item.leixing }}</text>
+    </view>
+    <view>
+      <text class="tag">地址：{{item.adress}}</text>
+    </view>
+    <view>
+      <text class="tag">发布于：{{item.createdAt[0]}}{{item.createdAt[1]}}{{item.createdAt[2]}}{{item.createdAt[3]}}{{item.createdAt[4]}}{{item.createdAt[5]}}{{item.createdAt[6]}}{{item.createdAt[7]}}{{item.createdAt[8]}}{{item.createdAt[9]}}</text>
+    </view>
+    <view>
+      <text class="para">  {{item.xiangqing}}</text>
+    </view>
+    <view style="margin-bottom;padding:0rpx;border-bottom:2pX solid white;margin-top: 10rpx"></view>
+    <view class="huifu">
+      <view>
+        <image class="comment-icon" src="http://lc-0b2nocdk.cn-n1.lcfile.com/0e33fdb559ae9d8de02f.png" />
+      </view>
+      <text class="tlink">{{item.huifu}}</text>
+    </view>
+
+   <view class="huifu2" wx:if="{{netzan}}">
+      <view class="tool-item" catchtap='onUpTop' data-post-id="{{post.postId}}" data-id="{{index}}">
+        <image class='suimage' wx:if="{{ifsupport[index]}}" src="/image/likered.png" id="{{index}}"></image>
+        <image class='suimage' wx:else src="/image/like.png" id="{{index}}"></image>
+        <text>{{item.supports}}</text>
+      </view>
+      <view class="tool-item2" catchtap='onnptop' data-post-id="{{post.postId}}" data-id="{{index}}">
+        <image class='suimage' wx:if="{{ifdissupport[index]}}" src="/image/dislikeed.png" id="{{index}}"></image>
+        <image class='suimage' wx:else src="/image/dislike.png" id="{{index}}"></image>
+        <text>{{item.dislike}}</text>
+      </view>
+    </view>
+
+
+  </view>
+</view>
+
+
+<view class="grid" wx:if="{{bindhidden2}}">
+
+
+  <!--top news list-->
+  <view class="card2" wx:for="{{Fankui}}" style="background:{{color2[index]}}">
+    <view>
+      <text class="title">{{ item.NetObject }}</text>
+    </view>
+    <view>
+      <text class="tag">地址：{{item.adress}}</text>
+    </view>
+    <view>
+      <text class="tag">发布于：{{item.createdAt[0]}}{{item.createdAt[1]}}{{item.createdAt[2]}}{{item.createdAt[3]}}{{item.createdAt[4]}}{{item.createdAt[5]}}{{item.createdAt[6]}}{{item.createdAt[7]}}{{item.createdAt[8]}}{{item.createdAt[9]}}</text>
+    </view>
+    <view>
+      <text class="para">  {{item.detail}}</text>
+    </view>
+    <view style="margin-bottom;padding:0rpx;border-bottom:2pX solid white;margin-top: 10rpx"></view>
+    <view class="huifu">
+      <view>
+        <image class="comment-icon" src="http://lc-0b2nocdk.cn-n1.lcfile.com/0e33fdb559ae9d8de02f.png" />
+      </view>
+      <text class="tlink">{{item.huifu}}</text>
+    </view>
+
+    <view class="huifu2" wx:if="{{netzan}}">
+      <view class="tool-item" catchtap='UpTop' data-post-id="{{post.postId}}" data-id="{{index}}">
+        <image class='suimage' wx:if="{{support[index]}}" src="/image/likered.png" id="{{index}}"></image>
+        <image class='suimage' wx:else src="/image/like.png" id="{{index}}"></image>
+        <text>{{item.sup}}</text>
+      </view>
+      <view class="tool-item2" catchtap='nptop' data-post-id="{{post.postId}}" data-id="{{index}}">
+        <image class='suimage' wx:if="{{dissupport[index]}}" src="/image/dislikeed.png" id="{{index}}"></image>
+        <image class='suimage' wx:else src="/image/dislike.png" id="{{index}}"></image>
+        <text>{{item.diske}}</text>
+      </view>
+    </view>
+
+
+  </view>
+</view>

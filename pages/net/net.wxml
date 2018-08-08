@@ -1,0 +1,68 @@
+<view class="cv">
+<form bindsubmit="formSubmit" bindreset="formReset">
+<view style="margin-bottom;border-bottom:5pX solid #EFEFF3;"></view>
+<view class="phone">
+<text>学号：</text>
+</view>
+<view class="section">
+  <input placeholder="需要填写，方便工作人员维修" focus="{{focus}}" bindinput="inputStuid"/>
+</view>
+
+<view class="phone">
+<text>联系方式：</text>
+</view>
+<view class="section">
+  <input placeholder="需要填写，方便工作人员联系您" focus="{{focus}}" bindinput="inputTelphone"/>
+</view>
+
+<view class="phone">
+<text>使用地点：</text>
+</view>
+<view class="section">
+  <input placeholder="如：教学楼333/润思楼B203" focus="{{focus}}" bindinput="inputAdress"/>
+</view>
+
+
+ <view class="section2" >  
+  <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{objectArrayNetObject}}" mode = "selector">  
+    <view class="picker">  
+      网络类型：{{objectArrayNetObject[index1]}}  
+    </view>  
+  </picker>  
+</view>
+
+
+
+<view class="section2" >  
+  <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{objectArrayQuesObject}}" mode = "selector">  
+    <view class="picker">  
+      问题类型：{{objectArrayQuesObject[index2]}}  
+    </view>  
+  </picker>  
+</view>
+
+
+
+
+
+
+<view style="margin-bottom;padding:5rpx;border-bottom:5pX solid #EFEFF3;"></view>
+
+
+
+
+<view class="phone">
+<text>问题详情：</text>
+</view>
+<view class="namePut">
+    <textarea  placeholder="您可以仔细描述在使用校园网中遇到的问题，方便工作人员诊断处理" name="textarea" bindinput="inputDetail"  />   
+</view>
+
+
+
+<view>
+<button class="ok"  type="primary"  bindtap="upnet" >点击提交</button>
+</view>
+
+</form>
+</view>

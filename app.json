@@ -1,0 +1,30 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/yu/yu",
+    "pages/test/test",
+    "pages/ques/ques",
+    "pages/my/my",
+    "pages/net/net",
+    "pages/admin/admin",
+    "pages/login/login",
+    "pages/fixmy/fixmy",
+    "pages/detail/detail",
+    "pages/allUp/allUp",
+    "pages/caidan/caidan",
+    "pages/flappybird/flappybird",
+    "pages/zhongli/zhongli",
+    "pages/fankuidetail/fankuidetail",
+    "pages/myyuyue2/myyuyue2",
+    "api/apitest/apitest"
+  ],
+
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#eeeeee",
+    "navigationBarTitleText": "网络文化办公室",
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh": false
+  }
+  
+}
