@@ -2,4 +2,12 @@
   "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#eeeeee",
   "navigationBarTitleText": "问题排查",
-  "navigationBarTextStyle": "black"}
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "demo-block": "../../components/demo-block/index",
+    "van-tab": "../../dist/tab/index",
+    "van-tabs": "../../dist/tabs/index",
+    "van-tag": "../../dist/tag/index"
+  }
+  
+ }

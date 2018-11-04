@@ -1,4 +1,4 @@
-const AV = require('../../libs/av-weapp-min.js');
+const AV = require('../../libs/leancloud-storage.js');
 var app = getApp();
 Page({
 
@@ -89,9 +89,10 @@ Page({
   },
   backToMain:function(){
     console.log('backtomain')
-    wx.redirectTo({
-      url: '../index/index'
-    })
+    wx.navigateBack({
+      delta: 2
+    });
+
   }
 
 })

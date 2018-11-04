@@ -1,4 +1,4 @@
-const AV = require('../../libs/av-weapp-min.js');
+const AV = require('../../libs/leancloud-storage.js');
 const app = getApp()
 
 Page({
@@ -16,9 +16,30 @@ Page({
     getreason:null,
     Fixdetail:false,
     gettitle:null,
-    
+    list:null,
+    length:null,
+    biaoqian: ['网络贴士', '你问我答', '资源共享'],
+    biaoqianif: [true, false, false],
+    Fankui:''
   },
-
+//切换不同的栏目
+  onClick(e){
+    var that = this
+    console.log(e)
+    if (e.detail.index == 1) {
+      that.setData({
+        biaoqianif: [false, true, false]
+      })
+    } if (e.detail.index == 0) {
+      that.setData({
+        biaoqianif: [true, false, false]
+      })
+    }else{
+      that.setData({
+        biaoqianif: [false, false, true]
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -26,13 +47,59 @@ Page({
     
   
     var _this = this;
+    //刷新网络
+    var query2 = new AV.Query('net');
+    //query2.startsWith('data')
+    query2.find().then(function (net) {
+      net.reverse()
+
+      //数据处理
+      _this.setData({
+        Fankui: net,
+        colornum2: net.length
+      })
+      console.log(21)
+
+      var length = net.length
+      // console.log(_this.data.colornum)
+      var fm2 = new Array(length);
+      for (var i = 0; i < length; i++) {
+        fm2[i] = _this.data.Fankui[i].attributes
+        //console.log(1)
+        //console.log(fm[i])
+      }
+      _this.setData({
+        Fankui: fm2
+      })
+
+      //console.log(net)
+      //that.setData({
+      //  Fankui: net,
+      // colornum2: net.length
+      // })
+    })
+
+
+
     //console.log(this.data.serchname)
     var query = new AV.Query('netfixmy');
     query.startsWith('for', '1');
     query.find().then(function (netfixmy) {
       // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
       _this.setData({
-        NetFix: netfixmy
+        NetFix: netfixmy,
+        length: netfixmy.length
+      })
+      console.log(_this.data.NetFix)
+      //var length = netfixmy.length
+      var fm = new Array(_this.data.length);
+      for (var i = 0; i < _this.data.length; i++) {
+        fm[i] = _this.data.NetFix[i].attributes
+        console.log(1)
+        console.log(fm[i])
+      }
+      _this.setData({
+        list: fm
       })
       console.log(_this.data.NetFix)
     }, function (error) {

@@ -1,7 +1,9 @@
 page {
   font-family: "微软雅黑";
   background: #f5f5f5;
-  padding-bottom: 150rpx;
+  padding-bottom: 150rpx;margin-top: 10%;
+  height:70%;
+ 
 }
 
 .detailtop {

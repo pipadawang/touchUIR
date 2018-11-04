@@ -1,6 +1,6 @@
 const app = getApp()
-const AV = require('../../libs/av-weapp-min.js');
-
+const AV = require('../../libs/leancloud-storage.js');
+import Toast from '../../dist/toast/toast';
 Page({
 
   /**
@@ -11,19 +11,19 @@ Page({
     objectArrayQuesObject: ['未选择', '无法登陆', '频繁掉线', '网速低', '无线网无法连接', '无线网信号差', '其它（请务必在问题描述中填写）'],
     index1:0,
     index2:0,
-    adress:null,
-    detail:null,
+    adress:'',
+    detail:'',
     telphone:null,
-    NetObject:null,
-    QuesObject:null,
-    stuid:null,
-
+    NetObject:'',
+    QuesObject:'',
+    stuid:'',
+    openid:''
   },
 
   inputAdress: function (e) {
     //console.log(e)
     this.setData({
-      adress: e.detail.value
+      adress: e.detail
     })
   },
 
@@ -49,26 +49,26 @@ Page({
   inputDetail: function (e) {
     //console.log(e)
     this.setData({
-      detail: e.detail.value
+      detail: e.detail
     })
   },
   inputTelphone: function (e) {
     //console.log(e)
     this.setData({
-      telphone: e.detail.value
+      telphone: e.detail
     })
   },
   inputStuid:function(e){
     console.log(e)
     this.setData({
-      stuid:e.detail.value
+      stuid:e.detail
     })
 
   },
 
 
   upnet:function(){
-    if (this.data.NetObject == null || this.data.QuesObject == null || this.data.NetObject == '未选择' || this.data.QuesObject =='未选择'){
+    if (this.data.NetObject == '' || this.data.QuesObject == '' || this.data.NetObject == '未选择' || this.data.QuesObject =='未选择'){
       wx.showModal({
         title: '提示',
         content: '您的网络类型或问题类型未选择哦',
@@ -132,6 +132,7 @@ Page({
       netd.set('NetObject', this.data.NetObject);
       netd.set('QuesObject', this.data.QuesObject);
       netd.set('stuid', this.data.stuid);
+      netd.set('openid',this.data.openid);
 
       netd.save().then(function (netd) {
 
@@ -141,15 +142,19 @@ Page({
           success: function (res) {
             if (res.confirm) {
               console.log('用户点击确定')
-              wx.redirectTo({
-                url: '../index/index'
-              })
+              wx.navigateBack({
+                delta: 1
+              });
+
             } else if (res.cancel) {
               console.log('用户点击取消')
+              wx.navigateBack({
+                delta: 1
+              });
             }
           }
         })
-        
+     
        
         
         // 成功保存之后，执行其他逻辑.
@@ -167,7 +172,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.data.openid = app.globalData.user.authData.lc_weapp.openid
   },
 
   /**
@@ -217,5 +222,24 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  back() {
+    wx.showModal({
+      title: '确认',
+      content: '你确定不要填写吗？若果您担心信息泄露，可在每晚八点钟前往教学楼二楼水房维修',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.navigateBack({
+            delta: 1
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  onClickIcon(){
+    Toast('根据学号我们才可以定位到问题');
   }
 })

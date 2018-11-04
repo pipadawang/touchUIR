@@ -27,14 +27,12 @@ font-weight: bold;
 font-size: 18px
 }
 
-
 .section2{
    background:white;
-   margin:10rpx;
+  
    padding:20rpx;
-   margin-top: 5%;
-   margin-left: 20rpx;
-   width: 90%
+   margin-top: 2%;
+ 
    }
 
 .maters{
@@ -56,7 +54,10 @@ padding: 20rpx;
   width: 100%;
 }
 .picker{
-  font-weight: bold;
+  /*font-weight: bold;*/
+  font-size:16px;
+text-align:center;
+
 }
 textarea{
   
@@ -72,10 +73,22 @@ textarea{
     height: 100%;
     z-index: 0;
     
-    background-color: #eeeeee
+    background-color: #f8f8f8; 
 }
 page {  
   display: block;  
-  min-height: 100%;  
-  background-color: #eeeeee;  
+  min-height: 95%;  
+  background-color: #f8f8f8; margin-top: 10% 
 }  
+
+.footer {
+  text-align: right;
+}
+.demo-margin-right1{
+  margin-right:10px;
+
+}
+.content {
+  padding: 20px;
+  font-size: 16px;
+}

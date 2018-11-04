@@ -1,6 +1,17 @@
  {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#9C978B",
+    
     "navigationBarTitleText": "我的管理",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "navigationStyle":"custom",
+    "usingComponents": {
+      "demo-block": "../../components/demo-block/index",
+      "van-cell": "../../dist/cell/index",
+      "van-icon": "../../dist/icon/index",
+      "van-tag": "../../dist/tag/index",
+      "van-cell-group": "../../dist/cell-group/index",
+      "van-tabs": "../../dist/tabs/index",
+      "van-tabbar": "../../dist/tabbar/index",
+      "van-tabbar-item": "../../dist/tabbar-item/index"
+    }
   }

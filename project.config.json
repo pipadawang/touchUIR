@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "2.3.0",
 	"appid": "wx059a6a5baa25dba9",
 	"projectname": "%E7%BD%91%E7%BB%9C%E6%96%87%E5%8C%96%E5%8A%9E%E5%85%AC%E5%AE%A4",
 	"condition": {
@@ -28,7 +28,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 51,
 			"list": [
 				{
 					"id": 0,
@@ -185,6 +185,161 @@
 					"name": "api",
 					"pathName": "api/apitest/apitest",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "admintest",
+					"pathName": "pages/admintest/admintest",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "admintest",
+					"pathName": "pages/admin/admin",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "admintest",
+					"pathName": "pages/admintest/admintest",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "admintest",
+					"pathName": "pages/admintest/admintest",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "admintest",
+					"pathName": "pages/admintest/admintest",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "makehaibao",
+					"pathName": "pages/haibao/makehaibao/makehaibao",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "makehaibao",
+					"pathName": "pages/haibao/makehaibao/makehaibao",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "makehaibao",
+					"pathName": "pages/haibao/makehaibao/makehaibao",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "allup",
+					"pathName": "pages/allUp/allUp",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "allup",
+					"pathName": "pages/allUp/allUp",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "a",
+					"pathName": "pages/allUp/allUp",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "ff",
+					"pathName": "pages/fixmy/fixmy",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "ffm",
+					"pathName": "pages/morelist/morelist",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "ffm",
+					"pathName": "pages/fixmy/fixmy",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "chat",
+					"pathName": "pages/chat/chat",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "chat",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "chat",
+					"pathName": "pages/chat/chat",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "chat",
+					"pathName": "pages/chat/chat",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "xxx",
+					"pathName": "pages/chat/chat",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "upn",
+					"pathName": "pages/upnews/upnews",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "upn",
+					"pathName": "pages/yu/yu",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "upn",
+					"pathName": "pages/upnews/upnews",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "upn",
+					"pathName": "pages/upnews/upnews",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "upn",
+					"pathName": "pages/fixmy/fixmy",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "d",
+					"pathName": "pages/mynet/mynet",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "d",
+					"pathName": "pages/upnews/upnews"
 				}
 			]
 		}

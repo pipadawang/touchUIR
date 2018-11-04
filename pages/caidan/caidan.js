@@ -1,5 +1,5 @@
 const app = getApp()
-const AV = require('../../libs/av-weapp-min.js');
+const AV = require('../../libs/leancloud-storage.js');
 
 //index.js
 //获取应用实例

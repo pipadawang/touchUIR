@@ -1,5 +1,6 @@
 page {
-	background: #eee;
+	background: #f8f8f8;
+  margin-top: 10% 
 }
 
 .order-item {
@@ -12,37 +13,38 @@ page {
 	margin-bottom: 0;
 }
 
-.order-footer {
-	padding: 9px 0;
-  display:flex;
 
-}
 
 .order-footer text {
 	font-size: 17px;
 	margin: 0 5px;
 }
 
+.demo-block__title{
+  margin:0;
+font-weight:400;
+font-size:20px;
+color:black;
+padding:20px 15px 15px;
 
+}
 
 .flex-item{
     width: 100px;
     height: 100px;
 }
 .flex-wrp{
-    height: 40px;
+    
     display:flex;
     background-color: #FFFFFF;
-    margin-top: 1%
+    margin-top: 3%
 }
 .no{
   padding: 5px;
   margin: 5%;
   margin-top: 1%
 }
-.inf{
-  width: 800rpx
-}
+
 .edi{
   margin-top: 7%
  
@@ -72,4 +74,30 @@ page {
 
 .fix{
   margin-top: 5%
+}
+.card{
+border-radius:17px;
+background-color:white;
+margin-top:3%;
+width:100%;
+
+}
+.com_title{
+padding:3px 3px 3px 3px;
+margin-left:2%;
+font-size: 20px
+
+}
+.com_main{
+color:#616161;
+font-size:15px;
+margin-top:1%;
+margin-bottom:2%;
+
+margin-left:2%;
+
+
+}
+.tag{
+  margin-left: 3%
 }

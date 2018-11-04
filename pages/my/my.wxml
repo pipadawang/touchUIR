@@ -1,44 +1,62 @@
+
+<view class="bigview" style='background-image:url({{userInfo.avatarUrl}})'>
+  
+</view>
+
+
+    
+    <view class="info" >
+    <button wx:if="{{!user.avatarUrl}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <image  wx:if="{{user.avatarUrl}}" bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+     <view class="de"  wx:if="{{user.avatarUrl}}"> <text  wx:if="{{user.avatarUrl}}" class="userinfo-nickname">{{userInfo.nickName}}</text><view class="gend"><van-tag  wx:if="{{user.avatarUrl}}" class="demo-margin-right" round type="primary">等级：{{userInfo.gender}}</van-tag></view></view></view>
+
+
+
+<!--
 <view class="cv">
-<view class="containe">
-  <view class="userinfo">
- <!--<button class="butt"  wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" > 点击登陆 </button>
+  <view class="containe">
+    <view class="userinfo" style=' background-image:{{user.avatarUrl}}'>-->
+      <!--<button class="butt"  wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" > 点击登陆 </button>
     
     <block wx:else>
       <image class="userinfo-avatar" bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>  
     </block>-->
-          <image class="userinfo-avatar" bindtap="bindViewTap" class="userinfo-avatar" src="{{user.avatarUrl}}" background-size="cover"></image> 
+      <!--<image class="userinfo-avatar" bindtap="bindViewTap" class="userinfo-avatar" src="{{user.avatarUrl}}" background-size="cover"></image>
 
-    </view><text class="userinfo-nickname">{{user.nickName}}</text></view>
-    <view style="margin-bottom;padding:5rpx;border-bottom:10pX solid #9C978B;"></view>
-</view>
+    </view>
+    <text class="userinfo-nickname">{{user.nickName}}</text>
+  </view>
+  <view style="margin-bottom;padding:5rpx;border-bottom:10pX solid #9C978B;"></view>
+</view>-->
 
-<view class='choose'>
 
-<view bindtap="navigateToMyyuyue" class="tableviewcell">
-	<image src="../../image/iconfont-dingdan.png" />
-	<text>维修预约</text>
-</view>
-<view bindtap="navigateToFankuiAdvice" class="tableviewcell">
-	<image src="../../image/nav_h.png" />
-	<text>我的反馈</text>
-</view>
-<view bindtap="navigateToAdvice" class="tableviewcell">
-	<image src="../../image/iconfont-tuihuo.png" />
-	<text>Bug提交</text>
-</view>
-<view class="boundary"/>
-<view bindtap="navigateTo" class="tableviewcell">
-	<image src="../../image/iconfont-kefu.png" />
-	<text>关于我们</text>
-</view>
 
-<view bindtap="navigateour" class="tableviewcell">
-	<image src="../../image/iconfont-help.png" />
-	<text>疑难解答</text>
-</view>
-<view bindtap="navigateToFail" class="tableviewcell">
-	<image src="../../image/iconfont-shouhuodizhi.png" />
-	<text>后台管理</text>
-</view>
-
-</view>
+<demo-block title="个人管理">
+  <van-cell-group>
+    <van-cell title="维修预约" icon="records" border="{{ false }}" bindtap="navigateToMyyuyue" />
+     <van-cell title="我的反馈" icon="share" border="{{ false }}"  bindtap="navigateToFankuiAdvice"/>
+      <van-cell title="网络报修" icon="pending-orders" border="{{ false }}"  bindtap="navigateToNet"/>
+  </van-cell-group></demo-block><demo-block title="疑难解答">
+   <van-cell-group>
+    <van-cell title="关于我们" icon="contact" border="{{ false }}"  bindtap="navigateTo" />
+     <van-cell title="疑难解答" icon="question" border="{{ false }}"  bindtap="navigateour" />
+      <van-cell title="Bug反馈" icon="exchange-record" border="{{ false }}" bindtap="navigateToAdvice" />
+  </van-cell-group>
+</demo-block>
+<demo-block title="管理平台">
+<van-cell-group>
+    
+  
+      
+  </van-cell-group>
+  <van-cell-group>
+    <van-cell title="信息管理" icon="edit" border="{{ false }}"  bindtap="navigateToFail" />
+  
+      
+  </van-cell-group></demo-block>
+  <!--<view >
+<van-tabbar active="{{ active }}"   bind:change="onChange">
+  <van-tabbar-item icon="wap-home">主页</van-tabbar-item>
+  <van-tabbar-item icon="records" wx:if='{{!netzan}}'>兴趣部落</van-tabbar-item>
+  <van-tabbar-item icon="contact" >个人管理</van-tabbar-item>
+</van-tabbar></view>-->

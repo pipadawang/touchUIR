@@ -1,24 +1,35 @@
-<view bindtap="orderManage" class="tableviewcell">
-  <image src="../../image/list.png" />
-  <text>网络排查(点击{{look}}）</text>
-</view>
+<demo-block title="总有你需要的~">
+  <van-tabs bind:click="onClick" type="card">
+    <van-tab wx:for="{{biaoqian}}" wx:key="index" title="{{ item }}">
 
-<view class="fix">
-  <view wx:if="{{bindhidden}}" class="order-item" wx:for="{{NetFix}}">
-    <view class="flex-wrp" style="flex-direction:row;" data-id="{{index}}" bindtap='detail'>
-      <view class="no">{{index+1}}</view>
-      <view class="inf">
-        <view class="order-footer">
-          <text>{{item.title}}</text>
+
+      <view class="order-item" wx:for="{{list}}" wx:if="{{biaoqianif[0]}}">
+        <view class="flex-wrp" style="flex-direction:row;" data-id="{{index}}" bindtap='detail'>
+          <view class="card">
+            <view class="com_title">{{item.title}}
+              <van-tag class="demo-margin-right" plain type="danger">{{item.biaoqian}}</van-tag>
+            </view>
+
+            <view class="com_main">{{item.reason}}</view>
+
+          </view>
         </view>
-
-
-
-
       </view>
-    </view>
 
+     <view class="order-item"  wx:if="{{biaoqianif[1]}}">
+     <text>即将上线</text>
+        <view class="flex-wrp" style="flex-direction:row;" data-id="{{index}}" bindtap='detail'>
+          <view class="card">
+            <view class="com_title">{{item.title}}
+              <van-tag class="demo-margin-right" plain type="danger">{{item.biaoqian}}</van-tag>
+            </view>
 
+            <view class="com_main">{{item.reason}}</view>
 
-  </view>
-</view>
+          </view>
+        </view>
+      </view>
+<view class="order-item"  wx:if="{{biaoqianif[2]}}"><text>即将上线</text></view>
+    </van-tab>
+  </van-tabs>
+</demo-block>

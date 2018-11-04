@@ -1,5 +1,5 @@
 // page/detail/detail.js
-const AV = require('../../libs/av-weapp-min.js');
+const AV = require('../../libs/leancloud-storage.js');
 var util = require('../../time/time.js')
 
 const app = getApp()

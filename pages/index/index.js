@@ -1,18 +1,22 @@
 const app = getApp()
-const AV = require('../../libs/av-weapp-min.js');
+const AV = require('../../libs/leancloud-storage.js');
 var util = require('../../time/time.js');
 var util = require('../../utils/util.js');
 var curPageIndex = [1, 1]
 var tabInitState = [false, false]
+import Dialog from '../../dist/dialog/dialog'
 Page({
   data: {
     curSelClassifyIndex: 0,
-    indeximg:[],
+    indeximg: [],
     imgUrls: [
       'http://lc-0B2nOcDK.cn-n1.lcfile.com/71ec86369190d4a79124.jpg',
       'http://lc-0b2nocdk.cn-n1.lcfile.com/03e34dce0ea98c001037.jpg'
 
     ],
+    data: {
+      active: 0
+    },
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -24,31 +28,32 @@ Page({
     listf: true,
     zhuangtai: "未登录（部分功能无法使用）",
     logos: [{
-      image: "/image/tools.png",
+      image: "/image/qinshi.png",
       title: "电脑维修",
       bind: "yuTap"
     }, {
-      image: "/image/upload.png",
+      image: "/image/xiaoyuan.png",
       title: "综合反馈",
       bind: "allUp"
     }, {
-      image: "/image/wireless.png",
+      image: "/image/choujiang.png",
       title: "网络报修",
       bind: "fixTap"
-    },/* 
+    }
+      ,/*
     {
       image: "/image/nba.png",
       title: "NBA",
       bind: "nba"
-    }*/{
+    },{
       image: "/image/puzzle.png",
       title: "问题排查",
       bind: "fixMyTap"
-    },
-   
+    },*/
+
     {
-      image: "/image/user.png",
-      title: "我的管理",
+      image: "/image/liuyan.png",
+      title: "发布活动",
       bind: "tomy"
     },
 
@@ -61,35 +66,94 @@ Page({
     bindhidden2: false,
     ifsupport: [],
     suload: null,
-    snload:null,
+    snload: null,
     //net
-    sul:null,
-    snl:null,
-    support:[],
-    dissupport:[],
+    sul: null,
+    snl: null,
+    support: [],
+    dissupport: [],
 
     supnum: null,
-    ifdissupport:[],
-    netzan:false,
-    color1:[],
-    colornum:'',
-    color2:[],
-    coloenum2:'',
+    ifdissupport: [],
+    netzan: false,
+    color1: [],
+    colornum: '',
+    color2: [],
+    coloenum2: '',
+    hidden: false,
+    biaoqian: ['High活动', '日常WTF'],
+    biaoqianif: [true, false, false],
+    imageList: [],
+    again: true,
+    //activity
+    act_news: {},
+    act_news_up: {}
   },
+  //查看回复
+  watch_replay(e) {
+    var that = this
+    console.log(e.currentTarget.dataset.id)
+    Dialog.confirm({
+      title: '回复详情',
+      message: that.data.allques[e.currentTarget.dataset.id].huifu,
+      confirmButtonText: '满意',
+      cancelButtonText: '不满意',
 
+    });
+  },
+  previewImage_act(e) {
+    console.log(e)
+   const current = e.target.dataset.src
+
+    this.data.imageList[0] = current
+    this.setData({
+      again: false
+    })
+    wx.previewImage({
+      current,
+      urls: this.data.imageList
+    })
+  },
+  previewImage(e) {
+    console.log(e)
+    const current = e.target.dataset.src
+
+    this.data.imageList[0] = current
+    this.setData({
+      again: false
+    })
+    wx.previewImage({
+      current,
+      urls: this.data.imageList
+    })
+  },
+  //切换标签
+  onClickbiaoqian(e) {
+    var that = this
+    console.log(e)
+    if (e.detail.index == 1) {
+      that.setData({
+        biaoqianif: [false, true, false]
+      })
+    } if (e.detail.index == 0) {
+      that.setData({
+        biaoqianif: [true, false, false]
+      })
+    }
+  },
   //跳转预约函数
   yuTap: function () {
     wx.navigateTo({
       url: '../yu/yu?wxname=' + this.data.userInfo.nickName
     })
-   /// console.log("chick")
+    /// console.log("chick")
   },
   fixTap: function () {
     wx.navigateTo({
       url: '../net/net?wxname=' + this.data.userInfo.nickName
     })
   },
-  nba:function(){
+  nba: function () {
     wx.navigateTo({
       url: '../../api/apitest/apitest?wxname=' + this.data.userInfo.nickName
     })
@@ -97,17 +161,19 @@ Page({
 
   onLoad: function () {
     var _this = this;
+    var that = this;
+
     //获取数据，判断是否要显示点赞功能（相当于吧功能调用放到云端了）
     var zan = new AV.Query('netif');
     zan.equalTo('name', 'netzan')
-   // var zan=new AV.Query("netif");
+    // var zan=new AV.Query("netif");
     //query2.startsWith('data')
     zan.find().then(function (rec) {
       // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
       rec.reverse()
       ///console.log(rec)
       _this.setData({
-       netzan: rec[0].attributes.num
+        netzan: rec[0].attributes.num
       })
 
     }, function (error) {
@@ -120,6 +186,7 @@ Page({
     //综合反馈
     var image = new AV.Query('Indeximg');
     //query2.startsWith('data')
+
     image.find().then(function (rec) {
       // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
       rec.reverse()
@@ -133,29 +200,74 @@ Page({
       _this.setData({
         indeximg: _this.data.indeximg
       })
-//console.log(_this.data.indeximg)
+      //console.log(_this.data.indeximg)
 
     }, function (error) {
     });
+    //High activity
+    _this.up_act()
+    /*
+    var act_query = new AV.Query('activity');
+    act_query.limit(20);
+    act_query.descending('createdAt');
+    act_query.find().then(function(acts){
+      console.log(acts)
+      _this.setData({
+        act_news:acts,
+      })
+      var act_length=acts.length
+      var act_fm=new Array(act_length)
+      for (var i = 0; i < act_length; i++){
+        act_fm[i]=acts[i].attributes
+        act_fm[i].creattime = acts[i].createdAt
+        console.log('act_fm{}'+act_fm[i])
+      }
+      console.log('act_fm:'+act_fm)
+      _this.setData({
+        act_news:act_fm,
+      })
+    })*/
+
     //综合反馈
     var query3 = new AV.Query('allQues');
+    query3.limit(10);
+    query3.descending('createdAt');
     //query2.startsWith('data')
     query3.find().then(function (allQues) {
-      // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
-      allQues.reverse()
+      /**
+       * 以下为处理数据，防止异常显示
+       */
+      //console.log(allQues)
       _this.setData({
         allques: allQues,
-        colornum: allQues.length
+        colornum: allQues.length,
+        hidden: true,
       })
-     // console.log(_this.data.colornum)
+      var length = allQues.length
+      // console.log(_this.data.colornum)
+      var fm = new Array(length);
+      for (var i = 0; i < length; i++) {
+        fm[i] = _this.data.allques[i].attributes
+        console.log(allQues[i].createdAt)
+        fm[i].creattime = allQues[i].createdAt
+        // fm[i]+=_this.data.allques[i].createdAt
+        //console.log(1)
+        //console.log(fm[i])
+      }
+      //console.log("next")
 
+      _this.setData({
+        allques: fm,
+        allques1: fm
+      })
+      //console.log(_this.data.allques)
       var color = new Array([_this.data.colornum]);
       var i = 0;
-      console.log(66666666)
+      //console.log(66666666)
       for (i = 0; i < _this.data.colornum; i++) {
-        color.push('#eee')
-        console.log(color[i])
-       // console.log(_this.data.colornum)
+        //color.push('#eee')
+        //console.log(color[i])
+        // console.log(_this.data.colornum)
       }
       for (i = 0; i < _this.data.colornum; i++) {
         if (i % 5 == 0) {
@@ -169,14 +281,14 @@ Page({
         } else if (i % 5 == 4) {
           color[i] = '#DCEDC8'
         }
-        
+
       }
       _this.setData({
-        color1:color
+        color1: color
       })
     }, function (error) {
     });
-   
+
 
 
     var query2 = new AV.Query('net');
@@ -184,18 +296,36 @@ Page({
     query2.find().then(function (net) {
       // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
       net.reverse()
-      console.log(net)
+      //console.log(net)
+      //数据处理
       _this.setData({
         Fankui: net,
+        colornum2: net.length
+      })
+      var length = net.length
+      // console.log(_this.data.colornum)
+      var fm2 = new Array(length);
+      for (var i = 0; i < length; i++) {
+        fm2[i] = _this.data.Fankui[i].attributes
+        //console.log(1)
+        // console.log(fm2[i])
+      }
+      _this.setData({
+        Fankui: fm2
+      })
+      console.log(_this.data.Fankui)
+      //console.log(net)
+      _this.setData({
+        // Fankui: net,
         colornum2: net.length
       })
 
       var colors = new Array([_this.data.colornum2]);
       var i = 0;
-      console.log(66666666)
+      //console.log(66666666)
       for (i = 0; i < _this.data.colornum2; i++) {
         colors.push('#eee')
-        console.log(colors[i])
+        //console.log(colors[i])
         // console.log(_this.data.colornum)
       }
       for (i = 0; i < _this.data.colornum2; i++) {
@@ -235,25 +365,12 @@ Page({
 
 
     var _this = this;
-   /* wx.getStorage({
-      key: 'wxid2',
-      success: function (res) {
-
-        console.log(res.data)
-        _this.setData({
-          test: res,
-          zhuangtai: "已登录"
-        })
-      }
-    })*/
-    //状态
-
 
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
-       // test: app.globalData.user.nickName
+        // test: app.globalData.user.nickName
       })
 
 
@@ -289,11 +406,97 @@ Page({
 
       })
     }
-
+    this.setData({
+      allques: this.data.allques
+    })
 
   },
 
+  onShow: function () {
+    if (this.data.again == true) {
+      console.log(1)
+      this.setData({
+        hidden: false
+      })
+      this.up_act()
+      //this.data.count = 123;
+      // wx.stopPullDownRefresh();
+      // wx.startPullDownRefresh()
+      var that = this;
+      var _this = this;
+      //刷新act
+      _this.up_act()
+      //刷新网络
+      var query2 = new AV.Query('net');
+      //query2.startsWith('data')
+      query2.find().then(function (net) {
+        net.reverse()
 
+        //数据处理
+        _this.setData({
+          Fankui: net,
+          colornum2: net.length
+        })
+        console.log(21)
+
+        var length = net.length
+        // console.log(_this.data.colornum)
+        var fm2 = new Array(length);
+        for (var i = 0; i < length; i++) {
+          fm2[i] = _this.data.Fankui[i].attributes
+          //console.log(1)
+          //console.log(fm[i])
+        }
+        _this.setData({
+          Fankui: fm2
+        })
+
+        //console.log(net)
+        //that.setData({
+        //  Fankui: net,
+        // colornum2: net.length
+        // })
+      })
+      // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
+
+      //_this.up_all()
+
+      //综合反馈
+      var query3 = new AV.Query('allQues');
+      query3.limit(10);
+      query3.descending('createdAt');
+      //query2.startsWith('data')
+      query3.find().then(function (allQues) {
+        // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
+        //allQues.reverse()
+
+
+        //allQues.reverse()
+        _this.setData({
+          allques: allQues,
+          colornum: allQues.length,
+          hidden: true,
+        })
+        var length = allQues.length
+        // console.log(_this.data.colornum)
+        var fm = new Array(length);
+        for (var i = 0; i < length; i++) {
+          fm[i] = _this.data.allques[i].attributes
+          //console.log(1)
+          //console.log(fm[i])
+        }
+        _this.setData({
+          allques: fm
+        })
+
+
+      })
+    } else {
+      this.setData({
+        again: true
+      })
+    }
+  },
   getUserInfo: function (e) {
 
     //console.log(e)
@@ -308,93 +511,10 @@ Page({
 
   },
 
-  /*onHide: function () {
-    var _this = this;
-    wx.getStorage({
-      key: 'wxid2',
-      success: function (res) {
-        console.log(res.data)
-        _this.setData({
-          test: res,
-          zhuangtai: "已登录"
-        })
-      }
-    })
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          console.log(1)
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-
-        }
-      })
-    }
-  },
-  onShow: function () {
-    var _this = this;
-    wx.getStorage({
-      key: 'wxid2',
-      success: function (res) {
-
-        console.log(res.data)
-        _this.setData({
-          test: res,
-          zhuangtai: "已登录"
-        })
-      }
-    })
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          console.log(1)
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-
-        }
-      })
-    }
-  },*/
   onShareAppMessage: function () {
     return {
-      title: '网络文化办公室',
-      desc: '国关修电脑哪家强，教学楼二楼开水房',
+      title: '指尖国关',
+      desc: '手指尖的校园生活',
     }
   },
   fixMyTap: function () {
@@ -404,7 +524,7 @@ Page({
   },
   tomy: function () {
     wx.navigateTo({
-      url: '../my/my'
+      url: '../upnews/upnews'
     })
   },
   allUp: function () {
@@ -489,19 +609,19 @@ Page({
       success: function (res) {
         console.log("have")
         //console.log(res.data)
-        
+
         that.data.ifsupport[$data] = false
         that.setData({
-          ifsupport:that.data.ifsupport
+          ifsupport: that.data.ifsupport
         })
         that.concelup(that.data.suload, $data)
         wx.showToast({
-          title:  "其实是手滑了",
+          title: "其实是手滑了",
           duration: 1000,
           icon: "sucess",
           make: true
         })
-        
+
       },//如果没有该缓存，则判断没有点赞，新建缓存，并设置判断为false
       fail: function () {
         console.log(123)
@@ -509,15 +629,15 @@ Page({
           key: that.data.suload,
           data: true
         })
-        
-        that.data.ifsupport[$data]= true
+
+        that.data.ifsupport[$data] = true
         that.setData({
-          ifsupport:that.data.ifsupport
+          ifsupport: that.data.ifsupport
         })
         console.log(that.data.ifsupport[$data])
         that.up(that.data.suload, $data)
         wx.showToast({
-          title:"说得对！",
+          title: "说得对！",
           duration: 1000,
           icon: "sucess",
           make: true
@@ -588,7 +708,7 @@ Page({
   },
 
 
-//踩一下
+  //踩一下
   onnptop: function (e) {
     var that = this
     //console.log(e)
@@ -600,10 +720,10 @@ Page({
       snload: this.data.allques[$data].id
     })
 
-   // console.log(this.data.snload)
+    // console.log(this.data.snload)
 
     wx.getStorage({
-      key: that.data.snload+'dis',//如果有该缓存，则证明已经点赞，设置判断为true
+      key: that.data.snload + 'dis',//如果有该缓存，则证明已经点赞，设置判断为true
       success: function (res) {
         console.log("dishave")
         //console.log(res.data)
@@ -624,7 +744,7 @@ Page({
       fail: function () {
         console.log(123)
         wx.setStorage({
-          key: that.data.snload+'dis',
+          key: that.data.snload + 'dis',
           data: true
         })
 
@@ -632,7 +752,7 @@ Page({
         that.setData({
           ifdissupport: that.data.ifdissupport
         })
-       // console.log(that.data.ifdissupport[$data])
+        // console.log(that.data.ifdissupport[$data])
         that.np(that.data.snload, $data)
         wx.showToast({
           title: "我觉得不行",
@@ -673,7 +793,7 @@ Page({
   //取消点赞
   concelnp(id, viewid) {
     wx.removeStorage({
-      key: id+'dis',
+      key: id + 'dis',
       success: function (res) {
         console.log(res.data)
       }
@@ -703,7 +823,7 @@ Page({
 
   },
 
-//网络点赞
+  //网络点赞
   //点赞
   UpTop: function (e) {
     var that = this
@@ -719,7 +839,7 @@ Page({
     console.log(this.data.sul)
 
     wx.getStorage({
-      key: that.data.sul+'net',//如果有该缓存，则证明已经点赞，设置判断为true
+      key: that.data.sul + 'net',//如果有该缓存，则证明已经点赞，设置判断为true
       success: function (res) {
         console.log("have")
         //console.log(res.data)
@@ -740,7 +860,7 @@ Page({
       fail: function () {
         console.log(123)
         wx.setStorage({
-          key: that.data.sul+'net',
+          key: that.data.sul + 'net',
           data: true
         })
 
@@ -791,7 +911,7 @@ Page({
   //取消点赞
   concelup2(id, viewid) {
     wx.removeStorage({
-      key: id+'net',
+      key: id + 'net',
       success: function (res) {
         console.log(res.data)
       }
@@ -937,5 +1057,193 @@ Page({
 
   },
 
+  //下拉刷新
+  onPullDownRefresh: function (e) {
+    console.log(1)
+    this.up_act()
+    this.setData({
+      hidden: false
+    })
+    //this.data.count = 123;
+    // wx.stopPullDownRefresh();
+    // wx.startPullDownRefresh()
+    var that = this;
+    var _this = this;
+    //刷新网络
+    var query2 = new AV.Query('net');
+    //query2.startsWith('data')
+    query2.find().then(function (net) {
 
+
+      //net.reverse()
+
+
+      //数据处理
+      _this.setData({
+        Fankui: net,
+        colornum2: net.length
+      })
+      var length = net.length
+      // console.log(_this.data.colornum)
+      var fm2 = new Array(length);
+      for (var i = 0; i < length; i++) {
+        fm2[i] = _this.data.Fankui[i].attributes
+        //console.log(1)
+        //console.log(fm[i])
+      }
+      _this.setData({
+        Fankui: fm2
+      })
+    })
+    // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
+
+
+    //综合反馈
+    var query3 = new AV.Query('allQues');
+    query3.limit(10);
+    query3.descending('createdAt');
+    //query2.startsWith('data')
+    query3.find().then(function (allQues) {
+      // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
+      //allQues.reverse()
+
+      /**
+       * 以下为处理数据，防止异常显示
+       */
+      //allQues.reverse()
+      _this.setData({
+        allques: allQues,
+        colornum: allQues.length,
+        hidden: true,
+      })
+      var length = allQues.length
+      // console.log(_this.data.colornum)
+      var fm = new Array(length);
+      for (var i = 0; i < length; i++) {
+        fm[i] = _this.data.allques[i].attributes
+        //console.log(1)
+        //console.log(fm[i])
+      }
+      _this.setData({
+        allques: fm
+      })
+
+    })
+    // console.log(_this.data.colornum)
+
+  },
+  //活动加载及更新
+  up_act() {
+    var _this = this
+    //High activity
+    var act_query = new AV.Query('activity');
+    act_query.limit(20);
+    act_query.descending('createdAt');
+    act_query.find().then(function (acts) {
+      console.log(acts)
+      _this.setData({
+        act_news: acts,
+      })
+      var act_length = acts.length
+      var act_fm = new Array(act_length)
+      for (var i = 0; i < act_length; i++) {
+        act_fm[i] = acts[i].attributes
+        //var time = acts[i].createdAt.toString()
+        var date = new Date(acts[i].createdAt.toString());
+        var date_value = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        act_fm[i].creattime = date_value
+       // console.log('act_fm{}' + act_fm[i])
+      }
+     // console.log('act_fm:' + act_fm)
+      _this.setData({
+        act_news: act_fm,
+      })
+    })
+  },
+  //综合反馈刷新
+  up_all() {
+    //综合反馈
+    var query3 = new AV.Query('allQues');
+    query3.limit(10);
+    query3.descending('createdAt');
+    //query2.startsWith('data')
+    query3.find().then(function (allQues) {
+      // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
+      //allQues.reverse()
+
+      /**
+       * 以下为处理数据，防止异常显示
+       */
+      //allQues.reverse()
+      _this.setData({
+        allques: allQues,
+        colornum: allQues.length,
+        hidden: true,
+      })
+      var length = allQues.length
+      // console.log(_this.data.colornum)
+      var fm = new Array(length);
+      for (var i = 0; i < length; i++) {
+        fm[i] = _this.data.allques[i].attributes
+        //console.log(1)
+        //console.log(fm[i])
+      }
+      _this.setData({
+        allques: fm
+      })
+
+
+    })
+  },
+  jstojson(Data) {
+
+  },
+  watch_act_detail(e){
+    var that = this
+    console.log(that.data.act_news[e.currentTarget.dataset.id])
+    var mes = '活动开始时间：' + that.data.act_news[e.currentTarget.dataset.id].up_date + ' ' + that.data.act_news[e.currentTarget.dataset.id].up_time + '\n' + '活动结束时间：' + that.data.act_news[e.currentTarget.dataset.id].end_date + ' ' + that.data.act_news[e.currentTarget.dataset.id].end_time + '\n' + '活动报名方式：' + that.data.act_news[e.currentTarget.dataset.id].tel+'\n'+"活动详情：" + that.data.act_news[e.currentTarget.dataset.id].main
+    console.log(e.currentTarget.dataset.id)
+    Dialog.confirm({
+      title: '活动详情',
+      message: mes,
+      confirmButtonText: '复制',
+      cancelButtonText: '取消',
+
+    }).then(() => {
+      // on confirm
+      wx.setClipboardData({
+        data: mes,
+        success: function (res) {
+          wx.getClipboardData({
+            success: function (res) {
+              wx.showToast({
+                title: '复制成功'
+              })
+            }
+          })
+        }
+      })
+    }).catch(() => {
+      // on cancel
+    });
+  },
+  onChange(e){
+    console.log(e.detail);
+    if(e.detail==0){
+      
+        console.log(1)
+      wx.redirectTo({
+          url: '../index/index'
+        })
+      
+    }else if(e.detail==1){
+      wx.redirectTo({
+        url: '../my/my',
+      })
+
+    }else if(e.detail==2){
+      console.log('隐藏')
+    }
+  },
+  
 })

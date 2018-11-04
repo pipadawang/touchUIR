@@ -1,4 +1,4 @@
-const AV = require('../../libs/av-weapp-min.js');
+const AV = require('../../libs/leancloud-storage.js');
 const app = getApp()
 
 Page({
@@ -16,7 +16,9 @@ Page({
     time: null,
     objectroll: null,
     adresult:[],
-    user:{}
+    user:'',
+    active:1,
+    netzan:false
   },
 
   onPullDownRefresh: function () {
@@ -27,9 +29,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var _this=this
+    //获取数据，判断是否要显示点赞功能（相当于吧功能调用放到云端了）
+    var zan = new AV.Query('netif');
+    zan.equalTo('name', 'netzan')
+    // var zan=new AV.Query("netif");
+    //query2.startsWith('data')
+    zan.find().then(function (rec) {
+      // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
+      rec.reverse()
+      ///console.log(rec)
+      _this.setData({
+        netzan: rec[0].attributes.num
+      })
+
+    }, function (error) {
+    });
+
     if (app.globalData.user) {
       this.setData({
         user: app.globalData.user,
+        userInfo: app.globalData.user,
         hasUserInfo: true
       })
     } else if (this.data.canIUse) {
@@ -85,11 +105,20 @@ Page({
     }, 1000) //延迟时间 这里是1秒 
   */
   },
-  getUserInfo: function (e) {
 
+  getUserInfo: function (e) {
+    var _this=this
+    const user = AV.User.current();
+    user.set(e.detail.userInfo).save().then(user => {
+      // 成功，此时可在控制台中看到更新后的用户信息
+      app.globalData.user = user.toJSON();
+    }).catch(console.error);
+    // 调用小程序 API，得到用户信息
+    
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
+      user: e.detail.userInfo,
       userInfo: e.detail.userInfo,
       hasUserInfo: true,
       wxname2: this.data.userInfo.nickName
@@ -105,6 +134,9 @@ Page({
     this.setData({
       wxname2: value
     })
+    // 假设已经通过 AV.User.loginWithWeapp() 登录
+    // 获得当前登录用户
+   
   },
   tomyyuyue: function () {
     console.log(1)
@@ -115,6 +147,12 @@ Page({
   navigateToAdvice:function(){
     wx.navigateTo({
       url: '../ques/ques'
+    })
+  },
+ 
+  navigateToadd() {
+    wx.navigateTo({
+      url: '../upnews/upnews'
     })
   },
   navigateToFankuiAdvice:function(){
@@ -139,6 +177,29 @@ Page({
       })
     }
 
+  },
+  navigateToNet() {
+    console.log(app.globalData.user)
+    if (app.globalData) {
+      console.log(app.globalData.user.authData.lc_weapp.openid)
+      wx.navigateTo({
+        url: '../mynet/mynet?ima=' + app.globalData.user.avatarUrl + '&na=' + app.globalData.user.nickName + '&ob=' + app.globalData.user.authData.lc_weapp.openid
+      })
+    } else {
+      wx.showModal({
+        title: '发生什么了？',
+        content: '请登录后查询我的预约  ',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
+
+ 
   },
   navigateTo: function () {
     wx.showModal({
@@ -295,7 +356,7 @@ Page({
     var _this = this;
     if (app.globalData.user.admin == true) {
       wx.navigateTo({
-        url: '../admin/admin'
+        url: '../admintest/admintest'
       })
     } else {
       wx.showModal({
@@ -315,5 +376,23 @@ Page({
     }
   },
   sendMessage:function(){ 
+  },
+  onChange(e) {
+    console.log(e.detail);
+    if (e.detail == 0) {
+
+      console.log(1)
+      wx.redirectTo({
+        url: '../index/index'
+      })
+
+    } else if (e.detail == 1) {
+      wx.redirectTo({
+        url: '../my/my',
+      })
+
+    }else if(e.detail==2){
+      console.log("conss")
+    }
   }
 })

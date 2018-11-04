@@ -1,3 +1,4 @@
+const AV = require('../../libs/leancloud-storage.js');
 Page({
 
   /**
@@ -7,20 +8,38 @@ Page({
     title:null,
     reason:null,
     way:null,
-  
+    titleimage:'http://lc-0b2nocdk.cn-n1.lcfile.com/71ec86369190d4a79124.jpg'
 
     
   },
-
+  onClickLeft(e){
+console.log(e)
+    wx.navigateBack({
+      delta: 1
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.setData({
       title:options.title,
-      reason:options.reason,
-      way:options.way
+      //reason:options.reason,
+      //way:options.way
     })
+var _this=this
+
+    //console.log(this.data.serchname)
+    var query = new AV.Query('netfixmy');
+    query.equalTo('title', this.data.title)
+    
+    query.find().then(function (netfixmy) {
+      console.log(netfixmy)
+      _this.setData({
+        titleimage: netfixmy[0].attributes.titleimage,
+        reason: netfixmy[0].attributes.reason,
+        way: netfixmy[0].attributes.way
+      })})
   },
 
   /**
@@ -69,6 +88,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+    return{
+      title:this.data.title,
+      desc:this.data.reason,
+      path:"pages/detail/detail?title=" + this.data.title
+    }
+
   }
 })

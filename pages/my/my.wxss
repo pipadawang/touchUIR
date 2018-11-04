@@ -1,4 +1,7 @@
 
+page{
+  background-color: #f8f8f8
+}
 .uerinfo{
   display: flex;
   flex-direction: column;
@@ -7,16 +10,17 @@
   background: white;
 }
 .userinfo-avatar {
-  width: 250rpx;
-  height: 250rpx;
+  width: 150rpx;
+  height: 150rpx;
   
-  border-radius: 50%
+  border-radius: 50%;
+  margin-left: 10%
 }
 
 .userinfo-nickname {
   color: white;
-  font-size: 30px;
-  margin-top: 6%
+  font-size: 25px;
+  margin-left: 10%
 }
 
 .yu{
@@ -114,7 +118,8 @@
   
 }
 .cv{
-    
+
+   
     width: 100%;
     height: 100%;
     z-index: 0;
@@ -132,4 +137,41 @@
 	background: white;
 	display: flex;
 	align-items: center;
+  
+}
+.bigview{
+  filter:blur(30px);
+  -webkit-filter: blur(10px);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 224px;
+  overflow: hidden;
+  position: absolute;
+  align-self: center;
+  z-index: 0;
+
+}
+.info{
+  display: flex;
+ 
+  flex-direction: row;
+  width: 100%;
+ 
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  height: 171px;
+  align-items:center;
+padding-top:50px;
+
+}
+.gend{
+  margin-left: 10%
+}
+.de{
+  display: flex;
+  flex-direction: column;
+  width:50%;
+margin-left: 2%
 }
